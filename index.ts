@@ -54,11 +54,9 @@ const Circuitbreaker = (params: BreakerOptions) => {
           );
         }
         attempts++;
-        if (attempts <= maxRetries) {
-          await new Promise((resolve) =>
-            setTimeout(resolve, params.retryAfter ?? 3000)
-          );
-        }
+        await new Promise((resolve) =>
+          setTimeout(resolve, params.retryAfter ?? 3000)
+        );
       }
     }
     return Promise.reject(new Error("Max retries exceeded."));
